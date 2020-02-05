@@ -11,6 +11,14 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   List<Widget> scoreKeeper = [];
+  double _progressValue;
+
+  @override
+  void initState() {
+    _progressValue = 0;
+  }
+
+  @override
 
   void checkAnswer(bool userAnswer) {
     if (userAnswer == quiz.getCorrectAnswer()) {
@@ -25,6 +33,8 @@ class _HomeState extends State<Home> {
       ));
     }
     setState(() {
+      _progressValue = 0.0;
+
       quiz.nextQuestion();
     });
   }
@@ -33,56 +43,59 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey.shade900,
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          Expanded(
-            flex: 5,
-            child: Padding(
-              padding: const EdgeInsets.all(15.0),
-              child: Center(
-                child: Text(
-                  quiz.getQuestionText(),
-                  style: GoogleFonts.lato(fontSize: 25.0, color: Colors.white),
-                  textAlign: TextAlign.center,
+      body: SafeArea(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            Container(
+              child: LinearProgressIndicator(value: _progressValue,),
+            ),
+            Expanded(
+              flex: 5,
+              child: Padding(
+                padding: const EdgeInsets.all(15.0),
+                child: Center(
+                  child: Text(
+                    quiz.getQuestionText(),
+                    style:
+                        GoogleFonts.lato(fontSize: 25.0, color: Colors.white),
+                    textAlign: TextAlign.center,
+                  ),
                 ),
               ),
             ),
-          ),
-          Expanded(
-            child: Padding(
-              padding: EdgeInsets.all(5.0),
-              child: FlatButton(
-                child: Text(
-                  'True',
-                  style: TextStyle(color: Colors.white, fontSize: 20.0),
+            Expanded(
+              child: Padding(
+                padding: EdgeInsets.all(5.0),
+                child: FlatButton(
+                  child: Text(
+                    'True',
+                    style: TextStyle(color: Colors.white, fontSize: 20.0),
+                  ),
+                  color: Colors.blue,
+                  onPressed: () {
+                    checkAnswer(true);
+                  },
                 ),
-                color: Colors.blue,
-                onPressed: () {
-                  checkAnswer(true);
-                },
               ),
             ),
-          ),
-          Expanded(
-            child: Padding(
-              padding: EdgeInsets.all(5.0),
-              child: FlatButton(
-                child: Text(
-                  'False',
-                  style: TextStyle(color: Colors.white, fontSize: 20.0),
+            Expanded(
+              child: Padding(
+                padding: EdgeInsets.all(5.0),
+                child: FlatButton(
+                  child: Text(
+                    'False',
+                    style: TextStyle(color: Colors.white, fontSize: 20.0),
+                  ),
+                  color: Colors.red,
+                  onPressed: () {
+                    checkAnswer(false);
+                  },
                 ),
-                color: Colors.red,
-                onPressed: () {
-                  checkAnswer(false);
-                },
               ),
             ),
-          ),
-          Row(
-            children: scoreKeeper,
-          )
-        ],
+          ],
+        ),
       ),
     );
   }
