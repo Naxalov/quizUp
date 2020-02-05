@@ -25,10 +25,12 @@ class QuizBrain {
     return this._qs[_questionNumber].answer;
   }
 
-  void nextQuestion() {
+  bool nextQuestion() {
     if (_questionNumber < _qs.length - 1) {
       _questionNumber++;
+      return true;
     }
+    return false;
   }
 
   double getProgress() {

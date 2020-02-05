@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:quiz_up/quiz_brain.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 QuizBrain quiz = QuizBrain();
 
@@ -36,7 +37,11 @@ class _HomeState extends State<Home> {
     setState(() {
       _progressValue += _addProgress ;
 
-      quiz.nextQuestion();
+      bool total =quiz.nextQuestion();
+      if (total == false){
+        Alert(context: context, title: "RFLUTTER", desc: "Flutter is awesome.").show();
+
+      }
     });
   }
 
@@ -48,7 +53,7 @@ class _HomeState extends State<Home> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            Container(
+        Container(
               child: LinearProgressIndicator(value: _progressValue,),
             ),
             Expanded(
