@@ -12,6 +12,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   List<Widget> scoreKeeper = [];
   double _progressValue;
+  double _addProgress = quiz.getProgress();
 
   @override
   void initState() {
@@ -33,7 +34,7 @@ class _HomeState extends State<Home> {
       ));
     }
     setState(() {
-      _progressValue = 0.0;
+      _progressValue += _addProgress ;
 
       quiz.nextQuestion();
     });

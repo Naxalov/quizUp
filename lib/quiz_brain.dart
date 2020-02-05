@@ -10,6 +10,8 @@ class QuizBrain {
         question: 'Approximately one quarter of human bones are in the feet.',
         answer: true),
     Questions(question: 'A slug\' blood is green.', answer: true),
+    Questions(question: 'A slug\' blood is green.', answer: true),
+    Questions(question: '5*4=15', answer: false),
     Questions(question: '5*4=15', answer: false),
     Questions(question: '10/2=5', answer: true),
     Questions(question: '3+1=4', answer: true),
@@ -27,5 +29,9 @@ class QuizBrain {
     if (_questionNumber < _qs.length - 1) {
       _questionNumber++;
     }
+  }
+
+  double getProgress() {
+    return 1.0 / _qs.length;
   }
 }
