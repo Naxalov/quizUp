@@ -1,7 +1,25 @@
+
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:quiz_up/quiz_brain.dart';
 
-class Home extends StatelessWidget {
+QuizBrain quiz = QuizBrain();
+
+class Home extends StatefulWidget {
+  @override
+  _HomeState createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  List<Widget> scoreKeeper = [];
+
+  void checkAnswer(bool userAnswer) {
+    setState(() {
+      quiz.nextQuestion();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -12,11 +30,10 @@ class Home extends StatelessWidget {
           Expanded(
             flex: 5,
             child: Padding(
-
               padding: const EdgeInsets.all(15.0),
               child: Center(
                 child: Text(
-                  'This is where the question text will go',
+                  quiz.getQuestionText(),
                   style: GoogleFonts.lato(fontSize: 25.0, color: Colors.white),
                   textAlign: TextAlign.center,
                 ),
@@ -27,9 +44,14 @@ class Home extends StatelessWidget {
             child: Padding(
               padding: EdgeInsets.all(5.0),
               child: FlatButton(
-                child: Text('True',style: TextStyle(color: Colors.white,fontSize: 20.0),),
+                child: Text(
+                  'True',
+                  style: TextStyle(color: Colors.white, fontSize: 20.0),
+                ),
                 color: Colors.blue,
-                onPressed: () {},
+                onPressed: () {
+                  checkAnswer(true);
+                },
               ),
             ),
           ),
@@ -39,10 +61,12 @@ class Home extends StatelessWidget {
               child: FlatButton(
                 child: Text(
                   'False',
-                  style: TextStyle(color: Colors.white,fontSize: 20.0),
+                  style: TextStyle(color: Colors.white, fontSize: 20.0),
                 ),
                 color: Colors.red,
-                onPressed: () {},
+                onPressed: () {
+                  checkAnswer(false);
+                },
               ),
             ),
           ),
