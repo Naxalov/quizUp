@@ -4,13 +4,13 @@ class QuizBrain {
   int _questionNumber = 0;
   List<Questions> _qs = [
     Questions(
-        question: 'You can lead a cow down stairs but not up stairs.',
+        question: '1+1=3',
         answer: false),
     Questions(
-        question: 'Approximately one quarter of human bones are in the feet.',
+        question: '10^2=1024',
         answer: true),
-    Questions(question: 'A slug\' blood is green.', answer: true),
-    Questions(question: 'A slug\' blood is green.', answer: true),
+    Questions(question: '0!=1', answer: true),
+    Questions(question: '3254345^0=1', answer: true),
     Questions(question: '5*4=15', answer: false),
     Questions(question: '5*4=15', answer: false),
     Questions(question: '10/2=5', answer: true),
@@ -32,8 +32,21 @@ class QuizBrain {
     }
     return false;
   }
-
+//bool isFinished(){
+//
+//}
   double getProgress() {
     return 1.0 / _qs.length;
+  }
+
+  void reset(){
+    _questionNumber = 0 ;
+  }
+  int getTotalNumber(){
+    return _qs.length;
+  }
+
+  void setShuffle(){
+    _qs.shuffle();
   }
 }

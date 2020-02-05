@@ -12,18 +12,21 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   List<Widget> scoreKeeper = [];
+  int _score;
   double _progressValue;
   double _addProgress = quiz.getProgress();
 
   @override
   void initState() {
     _progressValue = 0;
+    _score =0;
   }
 
   @override
 
   void checkAnswer(bool userAnswer) {
     if (userAnswer == quiz.getCorrectAnswer()) {
+      _score += 1;
       scoreKeeper.add(Icon(
         Icons.check,
         color: Colors.green,
@@ -37,10 +40,13 @@ class _HomeState extends State<Home> {
     setState(() {
       _progressValue += _addProgress ;
 
-      bool total =quiz.nextQuestion();
-      if (total == false){
-        Alert(context: context, title: "RFLUTTER", desc: "Flutter is awesome.").show();
-
+      bool isFinished =quiz.nextQuestion();
+      if (isFinished == false){
+        Alert(context: context, title: "Finished", desc: "Your score is $_score / ${quiz.getTotalNumber()}").show();
+         quiz.reset();
+        _progressValue = 0;
+        _score = 0;
+        quiz.setShuffle();
       }
     });
   }
