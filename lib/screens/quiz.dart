@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:quiz_up/quiz_brain.dart';
@@ -15,6 +13,17 @@ class _HomeState extends State<Home> {
   List<Widget> scoreKeeper = [];
 
   void checkAnswer(bool userAnswer) {
+    if (userAnswer == quiz.getCorrectAnswer()) {
+      scoreKeeper.add(Icon(
+        Icons.check,
+        color: Colors.green,
+      ));
+    } else {
+      scoreKeeper.add(Icon(
+        Icons.close,
+        color: Colors.red,
+      ));
+    }
     setState(() {
       quiz.nextQuestion();
     });
@@ -70,6 +79,9 @@ class _HomeState extends State<Home> {
               ),
             ),
           ),
+          Row(
+            children: scoreKeeper,
+          )
         ],
       ),
     );
